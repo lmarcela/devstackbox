@@ -5,5 +5,5 @@ export type Resource = {
   category: string;
   tags: string[];
   description?: string;
-  dateAdded: string;
+  // dateAdded: string;
 };

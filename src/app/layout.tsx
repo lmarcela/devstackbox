@@ -2,6 +2,8 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { ColorModeProvider } from '@/theme/ColorModeContext';
+import Providers from './providers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          {children}
+          <Providers>
+            <ColorModeProvider>{children}</ColorModeProvider>
+          </Providers>
         </AppRouterCacheProvider>
       </body>
     </html>

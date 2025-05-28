@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import BasicCard from '@/components/BasicCard';
+import ToggleThemeButton from '@/components/ToggleThemeButton';
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
           >
             Read our docs
           </a>
+          <ToggleThemeButton />
           <BasicCard />
         </div>
       </main>

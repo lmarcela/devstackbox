@@ -16,9 +16,7 @@ import {
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { ResourceFormValues, resourceSchema } from '@/lib/zodSchemas';
-
-const categories = ['Frontend', 'Backend', 'DevOps', 'Testing'];
-const availableTags = ['React', 'Node', 'GraphQL', 'Docker', 'Jest', 'TypeScript'];
+import { availableTags, categories } from '@/utils/common';
 
 export default function ResourceForm({
   onSubmit,

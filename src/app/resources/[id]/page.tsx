@@ -3,7 +3,7 @@
 import { Box, Chip, CircularProgress, Link, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { getResources } from '@/lib/api';
+import { getResources } from '@/services/resources';
 import { Resource } from '@/types/resource';
 
 export default function ResourceDetailPage() {

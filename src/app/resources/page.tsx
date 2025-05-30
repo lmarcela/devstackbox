@@ -7,7 +7,7 @@ import Link from 'next/link';
 import FilterBar from '@/components/FilterBar';
 import ResourceManager from '@/components/ResourceManager';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
-import { getResources } from '@/lib/api';
+import { getResources } from '@/services/resources';
 import { Resource } from '@/types/resource';
 
 export default function ResourcesPage() {
@@ -32,6 +32,7 @@ export default function ResourcesPage() {
 
     return matchSearch && matchCategory && matchTags;
   });
+
   if (isLoading) return <CircularProgress />;
 
   return (

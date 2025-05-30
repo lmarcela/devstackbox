@@ -2,16 +2,16 @@
 
 import { Grid, Typography } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { v4 as uuidv4 } from 'uuid';
 import ResourceForm from '@/components/ResourceForm';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
-import { addResource } from '@/lib/api';
-import { ResourceFormValues } from '@/lib/zodSchemas';
+import { ResourceFormValues } from '@/schemas/resourceSchema';
+import { addResource } from '@/services/resources';
 
 type Resource = ResourceFormValues & { id: string };
 
 export default function AddResourcePage() {
   const queryClient = useQueryClient();
+
   const { mutate: createResource } = useMutation({
     mutationFn: addResource,
     onSuccess: () => {
@@ -20,11 +20,7 @@ export default function AddResourcePage() {
   });
 
   const handleAddResource = (data: ResourceFormValues) => {
-    const newResource: Resource = {
-      ...data,
-      id: uuidv4(),
-    };
-    createResource(newResource);
+    createResource(data);
   };
 
   return (

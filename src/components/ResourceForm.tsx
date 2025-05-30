@@ -15,14 +15,15 @@ import {
   TextField,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import { ResourceFormValues, resourceSchema } from '@/lib/zodSchemas';
+import { ResourceFormValues, resourceSchema } from '@/schemas/resourceSchema';
+import { Resource } from '@/types/resource';
 import { availableTags, categories } from '@/utils/common';
 
-export default function ResourceForm({
-  onSubmit,
-}: {
+type ResourceFormProps = {
   onSubmit: (data: ResourceFormValues) => void;
-}) {
+  loadedValues?: Resource;
+};
+export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormProps) {
   const {
     register,
     handleSubmit,
@@ -32,11 +33,11 @@ export default function ResourceForm({
   } = useForm<ResourceFormValues>({
     resolver: zodResolver(resourceSchema),
     defaultValues: {
-      title: '',
-      url: '',
-      category: '',
-      tags: [],
-      description: '',
+      title: loadedValues?.title || '',
+      url: loadedValues?.url || '',
+      category: loadedValues?.category || '',
+      tags: loadedValues?.tags || [],
+      description: loadedValues?.description || '',
     },
   });
 

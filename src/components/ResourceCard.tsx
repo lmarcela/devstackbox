@@ -1,10 +1,30 @@
-import { Card, CardContent, Chip, Stack, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Card, CardContent, Chip, IconButton, Stack, Typography } from '@mui/material';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { deleteResource, updateResource } from '@/services/resources';
 import { Resource } from '@/types/resource';
 
 type ResourceCardprops = {
   resource: Resource;
 };
 export default function ResourceCard({ resource }: ResourceCardprops) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const { mutate: deleteMutation } = useMutation({
+    mutationFn: deleteResource,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['resources'] });
+    },
+  });
+
+  const handleDelete = async (id: string) => {
+    deleteMutation(id);
+    queryClient.invalidateQueries({ queryKey: ['resources'] });
+  };
+
   return (
     <Card key={resource.id} variant="outlined">
       <CardContent>
@@ -27,6 +47,12 @@ export default function ResourceCard({ resource }: ResourceCardprops) {
             {resource.description}
           </Typography>
         )}
+        <IconButton onClick={() => handleDelete(resource.id)} color="error">
+          <DeleteIcon />
+        </IconButton>
+        <IconButton onClick={() => router.push(`/resources/${resource.id}/edit`)} color="info">
+          <EditIcon />
+        </IconButton>
       </CardContent>
     </Card>
   );

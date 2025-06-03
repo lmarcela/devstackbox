@@ -15,6 +15,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
+import Link from 'next/link';
 import { ResourceFormValues, resourceSchema } from '@/schemas/resourceSchema';
 import { Resource } from '@/types/resource';
 import { availableTags, categories } from '@/utils/common';
@@ -129,6 +130,15 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
 
         <Button type="submit" variant="contained" color="primary">
           Save resource
+        </Button>
+        <Button
+          component={Link}
+          href="/resources"
+          className="rounded 
+          hover:opacity-90 px-4 py-2 normal-case w-full"
+          variant="outlined"
+        >
+          RETURN
         </Button>
       </Stack>
     </Box>

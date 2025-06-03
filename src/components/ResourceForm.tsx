@@ -43,7 +43,7 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
 
   const onInternalSubmit = (data: ResourceFormValues) => {
     onSubmit(data);
-    reset();
+    !loadedValues && reset();
   };
 
   return (

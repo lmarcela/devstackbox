@@ -10,7 +10,8 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import debounce from 'lodash.debounce';
+import { useEffect, useMemo, useState } from 'react';
 import { availableTags, categories } from '@/utils/common';
 
 type Props = {
@@ -22,6 +23,18 @@ export default function FilterBar({ onChange }: Props) {
   const [category, setCategory] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        onChange({ search: value, category, tags: selectedTags });
+      }, 500),
+    [category, selectedTags]
+  );
+
+  useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
+
   const handleTagToggle = (tag: string) => {
     const newTags = selectedTags.includes(tag)
       ? selectedTags.filter(t => t !== tag)
@@ -31,9 +44,9 @@ export default function FilterBar({ onChange }: Props) {
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setSearch(val);
-    onChange({ search: val, category, tags: selectedTags });
+    const value = e.target.value;
+    setSearch(value);
+    debouncedSearch(value);
   };
 
   const handleCategoryChange = (e: any) => {
@@ -44,7 +57,7 @@ export default function FilterBar({ onChange }: Props) {
 
   return (
     <Stack spacing={2} className="mb-4">
-      <TextField label="Search" value={search} onChange={handleSearch} fullWidth />
+      <TextField label="Search" onChange={handleSearch} />
 
       <FormControl fullWidth>
         <InputLabel>Category</InputLabel>

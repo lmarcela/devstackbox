@@ -24,7 +24,9 @@ export default function ResourcesPage() {
 
   const filtered = resources.filter(r => {
     const matchSearch =
-      filters.search === '' || r.title.toLowerCase().includes(filters.search.toLowerCase());
+      filters.search === '' ||
+      r.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      r.description?.toLowerCase().includes(filters.search.toLowerCase());
 
     const matchCategory = filters.category === '' || r.category === filters.category;
 

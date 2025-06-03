@@ -17,7 +17,17 @@ const resourcesRef = collection(db, 'resources');
 
 export const getResources = async (): Promise<Resource[]> => {
   const snapshot = await getDocs(resourcesRef);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Resource[];
+  return snapshot.docs.map(doc => {
+    const data = doc.data();
+    const createdAtValue =
+      data.createdAt instanceof Timestamp ? data.createdAt.toDate().toISOString() : null;
+
+    return {
+      id: doc.id,
+      ...data,
+      createdAt: createdAtValue,
+    } as Resource;
+  });
 };
 
 export const getResourceById = async (id: string): Promise<Resource | null> => {

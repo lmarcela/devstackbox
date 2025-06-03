@@ -10,7 +10,12 @@ type Filters = {
 };
 
 export const useFilteredResources = (filters: Filters, page: number, pageSize: number) => {
-  const { data: resources = [], isLoading } = useQuery<Resource[]>({
+  const {
+    data: resources = [],
+    error,
+    isLoading,
+    isError,
+  } = useQuery<Resource[]>({
     queryKey: ['resources'],
     queryFn: getResources,
   });
@@ -38,5 +43,5 @@ export const useFilteredResources = (filters: Filters, page: number, pageSize: n
 
   const totalPages = Math.ceil(filtered.length / pageSize);
 
-  return { isLoading, paginated, totalPages };
+  return { error, isError, isLoading, paginated, totalPages };
 };

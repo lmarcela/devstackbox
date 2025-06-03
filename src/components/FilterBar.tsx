@@ -78,6 +78,7 @@ export default function FilterBar({ onChange }: Props) {
             label={tag}
             color={selectedTags.includes(tag) ? 'primary' : 'default'}
             onClick={() => handleTagToggle(tag)}
+            className="mt-1"
           />
         ))}
       </Stack>

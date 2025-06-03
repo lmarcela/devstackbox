@@ -6,22 +6,21 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ResourceForm from '@/components/ResourceForm';
 import { useSnackbar } from '@/components/SnackbarProvider';
-import ToggleThemeButton from '@/components/ToggleThemeButton';
 import { ResourceFormValues } from '@/schemas/resourceSchema';
-import { getResourceById, updateResource } from '@/services/resources';
+import { getResourceBySlug, updateResource } from '@/services/resources';
 
 type Resource = ResourceFormValues & { id: string };
 
 export default function EditResourcePage() {
-  const { id: resourceId } = useParams();
+  const { slug } = useParams();
   const queryClient = useQueryClient();
 
   const { showSnackbar } = useSnackbar();
 
   const { data: resource, isLoading } = useQuery({
-    queryKey: ['resource', resourceId],
-    queryFn: () => getResourceById(resourceId as string),
-    enabled: !!resourceId,
+    queryKey: ['resource', slug],
+    queryFn: () => getResourceBySlug(slug as string),
+    enabled: !!slug,
   });
 
   const { mutateAsync: updateMutationAsync } = useMutation({
@@ -37,8 +36,8 @@ export default function EditResourcePage() {
 
   const handleEditResource = async (data: ResourceFormValues) => {
     try {
-      await updateMutationAsync({ id: resourceId as string, data });
-      return { success: true, id: resourceId };
+      await updateMutationAsync({ id: resource?.id as string, data });
+      return { success: true, id: resource?.id };
     } catch (error) {
       throw error;
     }
@@ -46,7 +45,6 @@ export default function EditResourcePage() {
 
   return (
     <Grid spacing={2} className="p-4">
-      <ToggleThemeButton />
       {!isLoading && !resource && (
         <Box className="max-w-[600px] mx-auto">
           <Typography variant="h5" mb={2} className="text-center">

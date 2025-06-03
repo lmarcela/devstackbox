@@ -10,6 +10,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+import slugify from 'slugify';
 import { db } from '@/lib/firebase';
 import { Resource } from '@/types/resource';
 
@@ -30,54 +31,42 @@ export const getResources = async (): Promise<Resource[]> => {
   });
 };
 
-export const getResourceById = async (id: string): Promise<Resource | null> => {
-  const ref = doc(db, 'resources', id);
-  const snapshot = await getDoc(ref);
+export const getResourceBySlug = async (slug: string): Promise<Resource | null> => {
+  const q = query(collection(db, 'resources'), where('slug', '==', slug));
+  const snapshot = await getDocs(q);
 
-  if (!snapshot.exists()) return null;
+  if (snapshot.empty) return null;
 
-  return { id: snapshot.id, ...snapshot.data() } as Resource;
+  const doc = snapshot.docs[0];
+  return { id: doc.id, ...doc.data() } as Resource;
 };
 
-const generateBaseSlug = (title: string): string => {
-  return title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+const getUniqueSlug = async (title: string): Promise<string> => {
+  const baseSlug = slugify(title, { lower: true, strict: true });
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    const q = query(resourcesRef, where('slug', '==', slug));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) break;
+
+    slug = `${baseSlug}-${counter++}`;
+  }
+
+  return slug;
 };
 
 export const addResource = async (resource: Omit<Resource, 'id' | 'createdAt' | 'slug'>) => {
-  const titleQuery = query(resourcesRef, where('title', '==', resource.title));
-  const titleSnapshot = await getDocs(titleQuery);
+  const slug = await getUniqueSlug(resource.title);
 
-  if (!titleSnapshot.empty) {
-    throw new Error('A resource with this title already exists.');
-  }
-
-  const baseSlug = generateBaseSlug(resource.title);
-  let finalSlug = baseSlug;
-  let counter = 1;
-  let slugExists = true;
-
-  while (slugExists) {
-    const slugQuery = query(resourcesRef, where('slug', '==', finalSlug));
-    const slugSnapshot = await getDocs(slugQuery);
-
-    if (slugSnapshot.empty) {
-      slugExists = false;
-    } else {
-      finalSlug = `${baseSlug}-${counter}`;
-      counter++;
-    }
-  }
-  const docRef = await addDoc(resourcesRef, {
+  const newData = {
     ...resource,
-    slug: finalSlug,
-    createdAt: Timestamp.now(),
-  });
+    slug,
+    createdAt: new Date().toISOString(),
+  };
+
+  const docRef = await addDoc(resourcesRef, newData);
   return docRef.id;
 };
 

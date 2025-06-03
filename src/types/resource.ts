@@ -1,6 +1,7 @@
 export type Resource = {
   id: string;
   title: string;
+  slug: string;
   url: string;
   category: string;
   tags: string[];

@@ -1,10 +1,9 @@
 'use client';
 
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ResourceForm from '@/components/ResourceForm';
 import { useSnackbar } from '@/components/SnackbarProvider';
-import ToggleThemeButton from '@/components/ToggleThemeButton';
 import { ResourceFormValues } from '@/schemas/resourceSchema';
 import { addResource } from '@/services/resources';
 
@@ -34,7 +33,6 @@ export default function AddResourcePage() {
 
   return (
     <Grid spacing={2} className="p-4">
-      <ToggleThemeButton />
       <ResourceForm onSubmit={handleAddResource} />
     </Grid>
   );

@@ -4,7 +4,7 @@ import { Card, CardContent, Chip, IconButton, Stack, Typography } from '@mui/mat
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { deleteResource, updateResource } from '@/services/resources';
+import { deleteResource } from '@/services/resources';
 import { Resource } from '@/types/resource';
 import ConfirmDialog from './ConfirmDialog';
 
@@ -31,7 +31,13 @@ export default function ResourceCard({ resource }: ResourceCardprops) {
   return (
     <Card key={resource.id} variant="outlined">
       <CardContent>
-        <Typography variant="h6">{resource.title}</Typography>
+        <Typography
+          variant="h6"
+          onClick={() => router.push(`/resources/${resource.slug}`)}
+          className="underline"
+        >
+          {resource.title}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           <a href={resource.url} target="_blank" rel="noopener noreferrer">
             {resource.url}
@@ -46,7 +52,7 @@ export default function ResourceCard({ resource }: ResourceCardprops) {
           ))}
         </Stack>
         {resource.description && (
-          <Typography variant="body2" mt={1}>
+          <Typography variant="body1" className="whitespace-pre-line line-clamp-2 pt-4">
             {resource.description}
           </Typography>
         )}
@@ -65,7 +71,7 @@ export default function ResourceCard({ resource }: ResourceCardprops) {
           confirmText="Delete"
           cancelText="Cancel"
         />
-        <IconButton onClick={() => router.push(`/resources/${resource.id}/edit`)} color="info">
+        <IconButton onClick={() => router.push(`/resources/edit/${resource.slug}`)} color="info">
           <EditIcon />
         </IconButton>
       </CardContent>

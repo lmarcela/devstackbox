@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ResourceForm from '@/components/ResourceForm';
+import { ReturnToResources } from '@/components/ReturnToResources';
 import { useSnackbar } from '@/components/SnackbarProvider';
 import { ResourceFormValues } from '@/schemas/resourceSchema';
 import { getResourceBySlug, updateResource } from '@/services/resources';
@@ -50,15 +51,7 @@ export default function EditResourcePage() {
           <Typography variant="h5" mb={2} className="text-center">
             Resource not found
           </Typography>
-          <Button
-            component={Link}
-            href="/resources"
-            className="rounded 
-                  hover:opacity-90 px-4 py-2 normal-case w-full"
-            variant="outlined"
-          >
-            RETURN TO RESOURCES
-          </Button>
+          <ReturnToResources />
         </Box>
       )}
       {isLoading && (

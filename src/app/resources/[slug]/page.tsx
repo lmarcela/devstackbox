@@ -3,6 +3,7 @@
 import { Box, Chip, CircularProgress, Link, Skeleton, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { ReturnToResources } from '@/components/ReturnToResources';
 import { getResourceBySlug, getResources } from '@/services/resources';
 import { Resource } from '@/types/resource';
 
@@ -45,6 +46,8 @@ export default function ResourceDetailPage() {
       <Link href={resource.url} target="_blank" rel="noopener">
         {resource.url}
       </Link>
+
+      <ReturnToResources />
     </Box>
   );
 }

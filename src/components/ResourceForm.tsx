@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { ResourceFormValues, resourceSchema } from '@/schemas/resourceSchema';
 import { Resource } from '@/types/resource';
 import { availableTags, categories } from '@/utils/common';
+import { ReturnToResources } from './ReturnToResources';
 
 type ResourceFormProps = {
   onSubmit: (data: ResourceFormValues) => Promise<{
@@ -135,15 +136,7 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
         <Button type="submit" variant="contained" color="primary">
           Save resource
         </Button>
-        <Button
-          component={Link}
-          href="/resources"
-          className="rounded 
-          hover:opacity-90 px-4 py-2 normal-case w-full"
-          variant="outlined"
-        >
-          RETURN TO RESOURCES
-        </Button>
+        <ReturnToResources />
       </Stack>
     </Box>
   );

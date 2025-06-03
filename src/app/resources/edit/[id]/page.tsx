@@ -1,7 +1,8 @@
 'use client';
 
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Skeleton, Stack, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import ResourceForm from '@/components/ResourceForm';
 import { useSnackbar } from '@/components/SnackbarProvider';
@@ -43,16 +44,44 @@ export default function EditResourcePage() {
     }
   };
 
-  if (isLoading) return <CircularProgress />;
-  if (!resource) return <p>Resource not found</p>;
-
   return (
     <Grid spacing={2} className="p-4">
       <ToggleThemeButton />
-      <Typography variant="h5" mb={2}>
-        Edit resource
-      </Typography>
-      <ResourceForm onSubmit={handleEditResource} loadedValues={resource!} />
+      {!isLoading && !resource && (
+        <Box className="max-w-[600px] mx-auto">
+          <Typography variant="h5" mb={2} className="text-center">
+            Resource not found
+          </Typography>
+          <Button
+            component={Link}
+            href="/resources"
+            className="rounded 
+                  hover:opacity-90 px-4 py-2 normal-case w-full"
+            variant="outlined"
+          >
+            RETURN TO RESOURCES
+          </Button>
+        </Box>
+      )}
+      {isLoading && (
+        <Box className="max-w-[600px] mx-auto">
+          <Typography variant="h5" mb={2} className="text-center">
+            Edit resource
+          </Typography>
+          <Stack spacing={2}>
+            <Skeleton variant="rectangular" height={56} />
+            <Skeleton variant="rectangular" height={56} />
+            <Skeleton variant="rectangular" height={56} />
+            <Skeleton variant="rectangular" height={56} />
+            <Skeleton variant="rectangular" height={80} />
+            <Skeleton variant="rectangular" height={48} />
+            <Skeleton variant="rectangular" height={48} />
+          </Stack>
+        </Box>
+      )}
+      {!isLoading && resource && (
+        <ResourceForm onSubmit={handleEditResource} loadedValues={resource} />
+      )}
     </Grid>
   );
 }

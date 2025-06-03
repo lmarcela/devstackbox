@@ -35,9 +35,6 @@ export default function AddResourcePage() {
   return (
     <Grid spacing={2} className="p-4">
       <ToggleThemeButton />
-      <Typography variant="h5" mb={2}>
-        Add new resource
-      </Typography>
       <ResourceForm onSubmit={handleAddResource} />
     </Grid>
   );

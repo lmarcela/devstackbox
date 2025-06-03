@@ -13,6 +13,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import Link from 'next/link';
@@ -54,8 +55,11 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
       component="form"
       onSubmit={handleSubmit(onInternalSubmit)}
       noValidate
-      sx={{ mt: 2, maxWidth: 600 }}
+      className="max-w-[600px] mx-auto"
     >
+      <Typography variant="h5" mb={2} className="text-center">
+        {`${loadedValues ? 'Edit' : 'Add'}  resource`}
+      </Typography>
       <Stack spacing={2}>
         <TextField
           label="Title"
@@ -138,7 +142,7 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
           hover:opacity-90 px-4 py-2 normal-case w-full"
           variant="outlined"
         >
-          RETURN
+          RETURN TO RESOURCES
         </Button>
       </Stack>
     </Box>

@@ -1,14 +1,12 @@
 'use client';
 
-import { CircularProgress, Grid } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { CircularProgress, Grid, Pagination } from '@mui/material';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import FilterBar from '@/components/FilterBar';
 import ResourceManager from '@/components/ResourceManager';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
-import { getResources } from '@/services/resources';
-import { Resource } from '@/types/resource';
+import { useFilteredResources } from '@/hooks/useFilteredResources';
 
 export default function ResourcesPage() {
   const [filters, setFilters] = useState({
@@ -17,24 +15,14 @@ export default function ResourcesPage() {
     tags: [] as string[],
   });
 
-  const { data: resources = [], isLoading } = useQuery<Resource[]>({
-    queryKey: ['resources'],
-    queryFn: getResources,
-  });
+  const [page, setPage] = useState(1);
+  const pageSize = 2;
 
-  const filtered = resources.filter(r => {
-    const matchSearch =
-      filters.search === '' ||
-      r.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-      r.description?.toLowerCase().includes(filters.search.toLowerCase());
+  useEffect(() => {
+    setPage(1);
+  }, [filters]);
 
-    const matchCategory = filters.category === '' || r.category === filters.category;
-
-    const matchTags = filters.tags.length === 0 || filters.tags.every(tag => r.tags.includes(tag));
-
-    return matchSearch && matchCategory && matchTags;
-  });
-
+  const { isLoading, paginated, totalPages } = useFilteredResources(filters, page, pageSize);
   if (isLoading) return <CircularProgress />;
 
   return (
@@ -45,7 +33,15 @@ export default function ResourcesPage() {
         <Link href="/resources/add">Add resource</Link>
       </Grid>
       <Grid size={{ xs: 12, sm: 8 }}>
-        <ResourceManager filtered={filtered} />
+        <ResourceManager filtered={paginated} />
+        {totalPages > 1 && (
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            sx={{ mt: 2 }}
+          />
+        )}
       </Grid>
     </Grid>
   );

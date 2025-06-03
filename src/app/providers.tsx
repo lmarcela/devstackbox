@@ -1,6 +1,9 @@
 'use client';
 
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SnackbarProvider } from '@/components/SnackbarProvider';
+import ColorModeProvider from '@/theme/ColorModeContext';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -25,5 +28,13 @@ function getQueryClient() {
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+      <QueryClientProvider client={queryClient}>
+        <ColorModeProvider>
+          <SnackbarProvider>{children}</SnackbarProvider>
+        </ColorModeProvider>
+      </QueryClientProvider>
+    </AppRouterCacheProvider>
+  );
 }

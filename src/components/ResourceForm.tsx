@@ -20,7 +20,9 @@ import { Resource } from '@/types/resource';
 import { availableTags, categories } from '@/utils/common';
 
 type ResourceFormProps = {
-  onSubmit: (data: ResourceFormValues) => void;
+  onSubmit: (data: ResourceFormValues) => Promise<{
+    success: boolean;
+  }>;
   loadedValues?: Resource;
 };
 export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormProps) {
@@ -41,8 +43,8 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
     },
   });
 
-  const onInternalSubmit = (data: ResourceFormValues) => {
-    onSubmit(data);
+  const onInternalSubmit = async (data: ResourceFormValues) => {
+    await onSubmit(data);
     !loadedValues && reset();
   };
 

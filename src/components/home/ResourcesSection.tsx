@@ -22,7 +22,7 @@ export default function ResourcesSection() {
       </Typography>
       <Divider className="mb-4" />
       <Stack spacing={2}>
-        <Card elevation={3} sx={{ my: 4 }}>
+        <Card elevation={3}>
           <CardContent>
             <Typography variant="body1" color="text.secondary">
               You can manage your learning resources with the following routes:
@@ -73,11 +73,7 @@ export default function ResourcesSection() {
               href="/resources"
               variant="contained"
               startIcon={<LibraryBooksIcon />}
-              className="bg-primary hover:brightness-110 transition-all duration-200 shadow-lg hover:shadow-xl text-white font-semibold text-lg px-6 py-3 rounded-xl normal-case"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-              }}
+              className="bg-primary hover:brightness-110 transition-all duration-200 shadow-lg hover:shadow-xl text-white font-semibold text-lg px-6 py-3 rounded-xl normal-case inline-flex items-center"
             >
               Explore Resources
             </Button>

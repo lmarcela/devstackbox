@@ -107,7 +107,7 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
                 multiple
                 input={<OutlinedInput label="Tags" />}
                 renderValue={selected => (
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  <Box className="flex flex-wrap gap-x-1 gap-y-1">
                     {selected.map(value => (
                       <Chip key={value} label={value} />
                     ))}

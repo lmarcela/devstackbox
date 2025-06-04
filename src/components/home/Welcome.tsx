@@ -8,7 +8,7 @@ import ThemeAndStyling from './ThemeAndStyling';
 
 const Welcome = () => {
   return (
-    <Container maxWidth="md" sx={{ py: 6 }}>
+    <Container maxWidth="md" className="py-6">
       <Box className="mb-4">
         <ToggleThemeButton />
       </Box>

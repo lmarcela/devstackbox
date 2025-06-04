@@ -16,7 +16,7 @@ const libraries = ['Zod', 'React Query', 'React Hook Form'];
 
 export default function BuiltWith() {
   return (
-    <Card elevation={3} sx={{ mb: 4 }}>
+    <Card elevation={3}>
       <CardContent>
         <Typography variant="h5" fontWeight="medium" gutterBottom>
           🛠️ Tech Stack
@@ -28,7 +28,7 @@ export default function BuiltWith() {
           ))}
         </Stack>
 
-        <Divider sx={{ my: 2 }} />
+        <Divider className="my-2" />
 
         <Typography variant="h6" gutterBottom>
           ⚙️ Form & Data Handling

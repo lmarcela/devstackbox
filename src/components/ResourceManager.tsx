@@ -71,7 +71,7 @@ export default function ResourceManager() {
                   variant="rectangular"
                   height={120}
                   animation="wave"
-                  sx={{ borderRadius: 2 }}
+                  className="rounded-md"
                 />
               ))
             : paginated?.map(resource => <ResourceCard key={resource.id} resource={resource} />)}
@@ -81,7 +81,7 @@ export default function ResourceManager() {
             count={totalPages}
             page={page}
             onChange={(_, value) => setPage(value)}
-            sx={{ mt: 2 }}
+            className="mt-4"
           />
         )}
       </Grid>

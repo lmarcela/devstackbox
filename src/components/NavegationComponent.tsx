@@ -19,7 +19,7 @@ const NavegationComponent = () => {
       href="/"
       underline="hover"
       color="inherit"
-      sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+      className="flex items-center gap-x-1"
     >
       <HomeIcon fontSize="small" />
     </Link>,

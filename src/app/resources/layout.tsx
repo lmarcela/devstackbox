@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Container } from '@mui/material';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
 
 export default function ResourcesLayout({ children }: { children: React.ReactNode }) {

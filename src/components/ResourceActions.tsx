@@ -42,7 +42,7 @@ const ResourceActions = ({ resource }: ResourceProps) => {
         confirmText="Delete"
         cancelText="Cancel"
       />
-      <IconButton onClick={() => router.push(`/resources/edit/${resource.slug}`)} color="info">
+      <IconButton onClick={() => router.push(`/resources/${resource.slug}/edit`)} color="info">
         <EditIcon />
       </IconButton>
     </Fragment>

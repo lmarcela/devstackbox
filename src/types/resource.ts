@@ -8,3 +8,7 @@ export type Resource = {
   description?: string;
   createdAt: string;
 };
+
+export type ResourceProps = {
+  resource: Resource;
+};

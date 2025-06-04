@@ -14,11 +14,11 @@ import debounce from 'lodash.debounce';
 import { useEffect, useMemo, useState } from 'react';
 import { availableTags, categories } from '@/utils/common';
 
-type Props = {
+type FilterBarProps = {
   onChange: (filters: { search: string; category: string; tags: string[] }) => void;
 };
 
-export default function FilterBar({ onChange }: Props) {
+export default function FilterBar({ onChange }: FilterBarProps) {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

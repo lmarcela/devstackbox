@@ -16,17 +16,17 @@ export default function ThemeAndStyling() {
         </Typography>
         <Typography variant="body1">
           🧩 The project was carefully configured to combine <strong>Material UI</strong>
-          's powerful components and theming system with the flexibility of{' '}
+          &rsquo;s powerful components and theming system with the flexibility of{' '}
           <strong>Tailwind CSS</strong> utility classes.
         </Typography>
         <Typography variant="body1">
-          This setup gives you the best of both worlds: MUI’s accessibility and design patterns, and
-          Tailwind’s utility-first rapid styling — with full support for responsive layouts and dark
-          mode.
+          This setup gives you the best of both worlds: MUI&rsquo;s accessibility and design
+          patterns, and Tailwind&rsquo;s utility-first rapid styling — with full support for
+          responsive layouts and dark mode.
         </Typography>
         <Typography variant="body1">
-          Custom themes are managed via MUI’s <code>ThemeProvider</code>, while global styles and
-          additional utility classes are powered by Tailwind’s configuration.
+          Custom themes are managed via MUI&rsquo;s <code>ThemeProvider</code>, while global styles
+          and additional utility classes are powered by Tailwind&rsquo;s configuration.
         </Typography>
       </Stack>
     </Box>

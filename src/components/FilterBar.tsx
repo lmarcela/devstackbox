@@ -1,12 +1,12 @@
 'use client';
 
 import {
-  Box,
   Chip,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Stack,
   TextField,
 } from '@mui/material';
@@ -49,7 +49,7 @@ export default function FilterBar({ onChange }: FilterBarProps) {
     debouncedSearch(value);
   };
 
-  const handleCategoryChange = (e: any) => {
+  const handleCategoryChange = (e: SelectChangeEvent) => {
     const val = e.target.value;
     setCategory(val);
     onChange({ search, category: val, tags: selectedTags });

@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import Link from 'next/link';
 import { ResourceFormValues, resourceSchema } from '@/schemas/resourceSchema';
 import { Resource } from '@/types/resource';
 import { availableTags, categories } from '@/utils/common';
@@ -48,7 +47,7 @@ export default function ResourceForm({ onSubmit, loadedValues }: ResourceFormPro
 
   const onInternalSubmit = async (data: ResourceFormValues) => {
     await onSubmit(data);
-    !loadedValues && reset();
+    if (!loadedValues) reset();
   };
 
   return (

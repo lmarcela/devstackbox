@@ -17,12 +17,12 @@ const ResourceActions = ({ resource }: ResourceProps) => {
     mutationFn: deleteResource,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['resources'] });
+      router.push(`/resources`);
     },
   });
 
   const handleDelete = async (id: string) => {
     deleteMutation(id);
-    queryClient.invalidateQueries({ queryKey: ['resources'] });
   };
 
   return (

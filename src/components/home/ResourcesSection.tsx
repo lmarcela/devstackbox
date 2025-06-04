@@ -73,7 +73,8 @@ export default function ResourcesSection() {
               href="/resources"
               variant="contained"
               startIcon={<LibraryBooksIcon />}
-              className="bg-primary hover:brightness-110 transition-all duration-200 shadow-lg hover:shadow-xl text-white font-semibold text-lg px-6 py-3 rounded-xl normal-case inline-flex items-center"
+              className="bg-primary hover:brightness-110 transition-all duration-200 shadow-lg hover:shadow-xl 
+              text-white dark:text-black font-semibold text-lg px-6 py-3 rounded-xl normal-case inline-flex items-center"
             >
               Explore Resources
             </Button>

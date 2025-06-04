@@ -20,8 +20,7 @@ export default function AIDevelopmentSection() {
         </Typography>
         <Typography variant="body1">
           By leveraging AI as a coding assistant, development became faster, more focused, and
-          knowledge was expanded across unfamiliar tech like Firebase queries, pagination
-          techniques, and MUI + Tailwind integration.
+          knowledge was expanded across unfamiliar tech like Firebase queries.
         </Typography>
       </Stack>
     </Box>
